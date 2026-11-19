@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     siteName: company.name,
     title: seo.title,
     description: seo.description,
-    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "Tuberías HDPE para proyectos que perduran — SISC SpA" }],
+    images: [{ url: `${siteUrl}/images/og.jpg`, width: 1200, height: 630, alt: "Tuberías HDPE para proyectos que perduran — SISC SpA" }],
   },
   twitter: {
     card: "summary_large_image",
     title: seo.title,
     description: seo.description,
-    images: ["/images/og.jpg"],
+    images: [`${siteUrl}/images/og.jpg`],
   },
   robots: { index: true, follow: true },
 };

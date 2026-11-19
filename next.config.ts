@@ -8,12 +8,19 @@ import type { NextConfig } from "next";
  */
 const isStaticExport = process.env.STATIC_EXPORT === "1" || process.env.npm_lifecycle_event === "build:static";
 
+/** Subdirectorio de publicación (GitHub Pages usa /sisc-web). Vacío en Vercel, FTP y desarrollo. */
+const basePath = (process.env.PAGES_BASE_PATH ?? "").replace(/\/$/, "");
+
 const nextConfig: NextConfig = {
   ...(isStaticExport ? { output: "export" as const, trailingSlash: true } : {}),
-  images: {
-    // La exportación estática no puede usar el optimizador de imágenes de Next.
-    unoptimized: isStaticExport,
-  },
+  ...(basePath ? { basePath, env: { NEXT_PUBLIC_BASE_PATH: basePath } } : {}),
+  images: basePath
+    ? // Bajo un subdirectorio, un loader propio antepone el basePath a las imágenes.
+      { loader: "custom" as const, loaderFile: "./src/lib/image-loader.ts" }
+    : {
+        // La exportación estática no puede usar el optimizador de imágenes de Next.
+        unoptimized: isStaticExport,
+      },
   turbopack: {
     rules: {
       "*.css": {
