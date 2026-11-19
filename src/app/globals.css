@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SISC SpA — Tokens de marca ("Precisión industrial")
+   ============================================================ */
+@theme {
+  --color-petroleo: #102b3f; /* institucional: header, secciones oscuras */
+  --color-industrial: #17648a; /* etiquetas, íconos, trazos técnicos */
+  --color-accion: #087fc1; /* logotipo, acentos, foco */
+  --color-accion-aa: #0773ae; /* botones con texto blanco (contraste AA) */
+  --color-hielo: #7cc4ec; /* acentos sobre fondo oscuro */
+  --color-grafito: #263642; /* texto principal */
+  --color-claro: #f3f6f8; /* fondos de sección */
+  --color-texto: #4a5b68; /* texto secundario */
+  --color-tenue: #5c6c78; /* etiquetas y notas */
+  --color-linea: #dce4ea; /* bordes */
+  --color-campo: #c9d5dd; /* bordes de formulario */
+  --color-fondo-ilus: #eef3f6; /* fondo de ilustraciones */
+  --color-noche: #0b2232; /* footer */
+  --color-error: #b42318;
+
+  --font-sans: "Archivo Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, Menlo, Consolas, monospace;
+
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-white font-sans text-grafito;
+  }
+  section[id] {
+    scroll-margin-top: 84px;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-hielo);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Patrón de puntos tipo plano técnico */
+  .blueprint {
+    background-image: radial-gradient(rgba(23, 100, 138, 0.16) 1px, transparent 1.2px);
+    background-size: 16px 16px;
+  }
+  /* Cuadrícula sutil para fondos oscuros */
+  .gridlines {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+  .hero-overlay {
+    background:
+      linear-gradient(90deg, rgba(16, 43, 63, 0.97) 0%, rgba(16, 43, 63, 0.9) 34%, rgba(16, 43, 63, 0.45) 68%, rgba(16, 43, 63, 0.2) 100%),
+      linear-gradient(0deg, rgba(16, 43, 63, 0.85) 0%, rgba(16, 43, 63, 0) 38%);
+  }
+  @media (max-width: 860px) {
+    .hero-overlay {
+      background: linear-gradient(180deg, rgba(16, 43, 63, 0.78) 0%, rgba(16, 43, 63, 0.9) 55%, rgba(16, 43, 63, 0.97) 100%);
+    }
+  }
+  .navlink {
+    position: relative;
+  }
+  .navlink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 2px;
+    background: var(--color-accion);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .navlink:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
