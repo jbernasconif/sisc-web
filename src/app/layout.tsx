@@ -39,7 +39,7 @@ const jsonLd = {
   "@type": "Organization",
   name: company.name,
   url: siteUrl,
-  logo: `${siteUrl}/icon.svg`,
+  logo: `${siteUrl}/icon.png`,
   email: contact.email,
   telephone: contact.whatsappDisplay.replace(/\s/g, ""),
   areaServed: { "@type": "Country", name: "Chile" },
